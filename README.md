@@ -10,7 +10,7 @@
 
   Check out the [language documentation and examples](https://github.com/lunarlang/evolution) which contains information about Lunar's syntax and semantics.
 
-</div>
+</div> NOT IDENTICAL TO MASTER
 
 ## Goals: what we want
   - embeds most idioms into the language (default args, named varargs, classes, etc)
