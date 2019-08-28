@@ -26,5 +26,6 @@ jobs:
       run: LUA_PATH="$LUA_PATH;./lib/?.lua;./lib/?/init.lua" lua ./lib/lunar/lunarc/init.lua
     - name: Unit Tests
       run: |
+        export LUA_PATH="$LUA_PATH;./?.lua;./?/init.lua;";
         luacheck ./dist -q --only 011
-         busted -C ./dist --verbose --coverage
+        busted -C ./dist --verbose --coverage
