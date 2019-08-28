@@ -1,0 +1,30 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Packages
+      run: |
+        sudo apt update
+        sudo apt install lua5.1 luarocks build-essential gcc-multilib mingw-w64
+    - name: Install Luarocks Dependencies
+      run: |
+        sudo luarocks install busted
+        sudo luarocks install luacov
+        sudo luarocks install luacheck
+        sudo luarocks install luastatic
+    - name: Setup Environment Variables
+      run:
+        export LUA_PATH="$LUA_PATH;./?.lua;./?/init.lua;";
+    - name: Build Lunar
+      run: LUA_PATH="$LUA_PATH;./lib/?.lua;./lib/?/init.lua" lua ./lib/lunar/lunarc/init.lua
+    - name: Unit Tests
+      run: |
+        luacheck ./dist -q --only 011
+         busted -C ./dist --verbose --coverage
